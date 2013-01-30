@@ -7,7 +7,7 @@ using Livet;
 
 namespace MyTimer3rd.Models
 {
-    public class Model : NotificationObject
+    public class TimerModel : NotificationObject
     {
         /*
          * NotificationObjectはプロパティ変更通知の仕組みを実装したオブジェクトです。

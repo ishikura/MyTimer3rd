@@ -64,7 +64,6 @@ namespace MyTimer3rd.ViewModels
         }
 
         ///Menuコマンド
-
         #region Menu_CloseCommand
         private ViewModelCommand _Menu_CloseCommand;
 
