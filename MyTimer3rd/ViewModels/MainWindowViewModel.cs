@@ -17,6 +17,42 @@ namespace MyTimer3rd.ViewModels
 {
     public class MainWindowViewModel : ViewModel
     {
+        /// <summary>
+        /// 表示用プロパティ
+        /// </summary>
+        #region StartPauseButtonContent変更通知プロパティ
+        private string _StartPauseButtonContent = "START";
+
+        public string StartPauseButtonContent
+        {
+            get
+            { return _StartPauseButtonContent; }
+            set
+            { 
+                if (_StartPauseButtonContent == value)
+                    return;
+                _StartPauseButtonContent = value;
+                RaisePropertyChanged("StartPauseButtonContent");
+            }
+        }
+        #endregion
+        #region RemainTime変更通知プロパティ
+        private string _RemainTime = "00:00:00";
+
+        public string RemainTime
+        {
+            get
+            { return _RemainTime; }
+            set
+            { 
+                if (_RemainTime == value)
+                    return;
+                _RemainTime = value;
+                RaisePropertyChanged("RemainTime");
+            }
+        }
+        #endregion
+
         /* コマンド、プロパティの定義にはそれぞれ 
          * 
          *  lvcom   : ViewModelCommand
@@ -63,27 +99,31 @@ namespace MyTimer3rd.ViewModels
         {
         }
 
+
         ///Menuコマンド
-        #region Menu_CloseCommand
-        private ViewModelCommand _Menu_CloseCommand;
+        /// Closeコマンドを作ってみたけど、なぜかCloseしてくれなかった。
+        /// Exit(0)も効かない。ココが呼ばれてない？
+        //#region Menu_CloseCommand
+        //private ViewModelCommand _Menu_CloseCommand;
 
-        public ViewModelCommand Menu_CloseCommand
-        {
-            get
-            {
-                if (_Menu_CloseCommand == null)
-                {
-                    _Menu_CloseCommand = new ViewModelCommand(Menu_Close);
-                }
-                return _Menu_CloseCommand;
-            }
-        }
+        //public ViewModelCommand Menu_CloseCommand
+        //{
+        //    get
+        //    {
+        //        if (_Menu_CloseCommand == null)
+        //        {
+        //            _Menu_CloseCommand = new ViewModelCommand(Menu_Close);
+        //        }
+        //        return _Menu_CloseCommand;
+        //    }
+        //}
 
-        public void Menu_Close()
-        {
-            Environment.Exit(0);
-        }
-        #endregion
+        //public void Menu_Close()
+        //{
+        //    Environment.Exit(0);
+        //    Messenger.Raise(new WindowActionMessage("Close", WindowAction.Close));
+        //}
+        //#endregion
 
 
         }
