@@ -17,6 +17,34 @@ namespace MyTimer3rd.ViewModels
 {
     public class MainWindowViewModel : ViewModel
     {
+        private TimerModel _timerModel;
+
+        public MainWindowViewModel()
+        {
+            _timerModel = new TimerModel();
+            var listener = new PropertyChangedEventListener(_timerModel);
+
+            listener.RegisterHandler("NowTimerStatus", (sender, e) =>
+            {
+                if (_timerModel.NowTimerStatus == TimerModel.TimerStatus.CountDown)
+                {
+                    StartPauseButtonContent = "PAUSE";
+                }
+                else
+                {
+                    StartPauseButtonContent = "START";
+                }
+
+            });
+
+            listener.RegisterHandler("TimerRemainValue", (sender, e) =>
+            {
+                RemainTime = _timerModel.TimerRemainValue.ToString(@"hh\:mm\:ss\:fff");
+            });
+
+            this.CompositeDisposable.Add(listener);
+        }
+
         /// <summary>
         /// 表示用プロパティ
         /// </summary>
@@ -52,6 +80,7 @@ namespace MyTimer3rd.ViewModels
             }
         }
         #endregion
+
 
         /* コマンド、プロパティの定義にはそれぞれ 
          * 
@@ -95,11 +124,10 @@ namespace MyTimer3rd.ViewModels
          * 自動的にUIDispatcher上での通知に変換されます。変更通知に際してUIDispatcherを操作する必要はありません。
          */
 
-        public void Initialize()
+         public void Initialize()
         {
         }
-
-
+        
         ///Menuコマンド
         /// Closeコマンドを作ってみたけど、なぜかCloseしてくれなかった。
         /// Exit(0)も効かない。ココが呼ばれてない？
@@ -125,6 +153,66 @@ namespace MyTimer3rd.ViewModels
         //}
         //#endregion
 
+        //ボタンコマンド
 
+        #region StartPauseButtonCommand
+        private ViewModelCommand _StartPauseButtonCommand;
+
+        public ViewModelCommand StartPauseButtonCommand
+        {
+            get
+            {
+                if (_StartPauseButtonCommand == null)
+                {
+                    _StartPauseButtonCommand = new ViewModelCommand(StartPauseButton, CanStartPauseButton);
+                }
+                return _StartPauseButtonCommand;
+            }
         }
+
+        public bool CanStartPauseButton()
+        {
+            return _timerModel.NowTimerStatus != TimerModel.TimerStatus.CountUp;
+        }
+
+        public void StartPauseButton()
+        {
+            if (_timerModel.NowTimerStatus == TimerModel.TimerStatus.CountDown)
+            {
+                _timerModel.Pause();
+            }
+            else
+            {
+                _timerModel.Start();
+            }
+        }
+        #endregion
+
+        #region ResetButtonCommand
+        private ViewModelCommand _ResetButtonCommand;
+
+        public ViewModelCommand ResetButtonCommand
+        {
+            get
+            {
+                if (_ResetButtonCommand == null)
+                {
+                    _ResetButtonCommand = new ViewModelCommand(ResetButton, CanResetButton);
+                }
+                return _ResetButtonCommand;
+            }
+        }
+
+        public bool CanResetButton()
+        {
+            return true;
+        }
+
+        public void ResetButton()
+        {
+            _timerModel.Reset();
+        }
+        #endregion
+
+    }
 }

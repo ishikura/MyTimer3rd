@@ -65,7 +65,7 @@
         </Menu>
         <Label Content="{Binding RemainTime}" Height="94" HorizontalAlignment="Left" Name="countDownTimerLabel" VerticalAlignment="Top" Width="491" Grid.Row="1" />
         <StatusBar Grid.Row="2" Height="40" HorizontalAlignment="Left" Name="TimerStatus" VerticalAlignment="Top" Width="503" />
-        <Button Content="{Binding StartPauseButtonContent}" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="237,138,0,0" Name="startpauseBtn" VerticalAlignment="Top" Width="75" />
-        <Button Content="RESET" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="318,138,0,0" Name="resetBtn" VerticalAlignment="Top" Width="75" />
+        <Button Content="{Binding StartPauseButtonContent}" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="237,138,0,0" Name="startpauseBtn" VerticalAlignment="Top" Width="75" Command="{Binding StartPauseButtonCommand}"/>
+        <Button Content="RESET" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="318,138,0,0" Name="resetBtn" VerticalAlignment="Top" Width="75" Command="{Binding ResetButtonCommand}"/>
     </Grid>
 </Window>
