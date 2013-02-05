@@ -21,6 +21,7 @@ namespace MyTimer3rd.ViewModels
 
         public MainWindowViewModel()
         {
+            #region Timerモデル生成および聞き耳設定
             _timerModel = new TimerModel();
             var listener = new PropertyChangedEventListener(_timerModel);
 
@@ -29,20 +30,21 @@ namespace MyTimer3rd.ViewModels
                 if (_timerModel.NowTimerStatus == TimerModel.TimerStatus.CountDown)
                 {
                     StartPauseButtonContent = "PAUSE";
+                    TimerValueListIsEnable = false;
                 }
                 else
                 {
                     StartPauseButtonContent = "START";
+                    TimerValueListIsEnable = true;
                 }
-
             });
 
             listener.RegisterHandler("TimerRemainValue", (sender, e) =>
             {
                 RemainTime = _timerModel.TimerRemainValue.ToString(@"hh\:mm\:ss\:fff");
             });
-
             this.CompositeDisposable.Add(listener);
+            #endregion
         }
 
         /// <summary>
@@ -77,6 +79,60 @@ namespace MyTimer3rd.ViewModels
                     return;
                 _RemainTime = value;
                 RaisePropertyChanged("RemainTime");
+            }
+        }
+        #endregion
+        #region TimerValueList変更通知プロパティ
+        private List<TimeSpan> _TimerValueList
+            = new List<TimeSpan>() {
+                new TimeSpan(0, 1, 0),
+                new TimeSpan(0, 3, 0),
+                new TimeSpan(0, 5, 0),
+                new TimeSpan(0,10, 0),};
+
+        public List<TimeSpan> TimerValueList
+        {
+            get
+            { return _TimerValueList; }
+            set
+            { 
+                if (_TimerValueList == value)
+                    return;
+                _TimerValueList = value;
+                RaisePropertyChanged("TimerValueList");
+            }
+        }
+        #endregion
+
+
+        #region TimerValueListIsEnable変更通知プロパティ
+        private bool _TimerValueListIsEnable = true;
+
+        public bool TimerValueListIsEnable
+        {
+            get
+            { return _TimerValueListIsEnable; }
+            set
+            { 
+                if (_TimerValueListIsEnable == value)
+                    return;
+                _TimerValueListIsEnable = value;
+                RaisePropertyChanged("TimerValueListIsEnable");
+            }
+        }
+        #endregion
+
+
+        #region 選択タイマ値
+        private TimeSpan _selectedTimerValue;
+        public TimeSpan SelectedTimerValue // = new TimeSpan(0, 3, 0);
+        {
+            get { return _selectedTimerValue; }
+            set
+            {
+                _selectedTimerValue = value;
+                _timerModel.SetTimerValue(value);
+                RemainTime = value.ToString(@"hh\:mm\:ss");
             }
         }
         #endregion

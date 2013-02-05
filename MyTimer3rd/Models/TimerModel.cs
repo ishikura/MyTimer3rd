@@ -158,6 +158,7 @@ namespace MyTimer3rd.Models
         public void Reset()
         {
             endTime = DateTime.Now + initialTimerValue;
+            TimerRemainValue = initialTimerValue;
         }
 
         //カウントダウン
