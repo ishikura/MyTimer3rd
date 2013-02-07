@@ -17,9 +17,9 @@ namespace MyTimer3rd.Views
     /// <summary>
     /// Window1.xaml の相互作用ロジック
     /// </summary>
-    public partial class Window1 : Window
+    public partial class TimerValueEditWindow : Window
     {
-        public Window1()
+        public TimerValueEditWindow()
         {
             InitializeComponent();
         }

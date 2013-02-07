@@ -18,14 +18,15 @@ namespace MyTimer3rd.ViewModels
     public class MainWindowViewModel : ViewModel
     {
         private TimerModel _timerModel;
+        private TimerValueListModel _timerValueListModel;
 
         public MainWindowViewModel()
         {
             #region Timerモデル生成および聞き耳設定
             _timerModel = new TimerModel();
-            var listener = new PropertyChangedEventListener(_timerModel);
+            var timerListener = new PropertyChangedEventListener(_timerModel);
 
-            listener.RegisterHandler("NowTimerStatus", (sender, e) =>
+            timerListener.RegisterHandler("NowTimerStatus", (sender, e) =>
             {
                 if (_timerModel.NowTimerStatus == TimerModel.TimerStatus.CountDown)
                 {
@@ -39,12 +40,14 @@ namespace MyTimer3rd.ViewModels
                 }
             });
 
-            listener.RegisterHandler("TimerRemainValue", (sender, e) =>
+            timerListener.RegisterHandler("TimerRemainValue", (sender, e) =>
             {
                 RemainTime = _timerModel.TimerRemainValue.ToString(@"hh\:mm\:ss\:fff");
             });
-            this.CompositeDisposable.Add(listener);
+            this.CompositeDisposable.Add(timerListener);
             #endregion
+
+
         }
 
         /// <summary>

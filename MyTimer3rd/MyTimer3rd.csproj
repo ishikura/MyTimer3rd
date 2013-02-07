@@ -66,10 +66,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModels\EditWindowViewModel.cs" />
+    <Compile Include="Models\TimerValueListModel.cs" />
+    <Compile Include="ViewModels\TimerValueEditWindowViewModel.cs" />
     <Compile Include="ViewModels\StyleEditWindowViewModel.cs" />
-    <Compile Include="Views\EditWindow.xaml.cs">
-      <DependentUpon>EditWindow.xaml</DependentUpon>
+    <Compile Include="Views\TimerValueEditWindow.xaml.cs">
+      <DependentUpon>TimerValueEditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StyleEditWindow.xaml.cs">
       <DependentUpon>StyleEditWindow.xaml</DependentUpon>
@@ -88,7 +89,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\EditWindow.xaml">
+    <Page Include="Views\TimerValueEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

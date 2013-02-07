@@ -48,13 +48,24 @@
 
             </MenuItem>
             <MenuItem Header="ツール(_T)">
-                <MenuItem Header="設定...(_S)">
-                    <MenuItem Header="フォント(_F)" >
+                <MenuItem Header="設定(_S)">
+                    <MenuItem Header="フォント...(_F)" >
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <l:TransitionInteractionMessageAction WindowType="{x:Type v:StyleEditWindow}" Mode="Modal" >
                                     <l:DirectInteractionMessage>
                                         <l:TransitionMessage Mode="Modal" WindowType="{x:Type v:StyleEditWindow}"/>
+                                    </l:DirectInteractionMessage>
+                                </l:TransitionInteractionMessageAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
+                    <MenuItem Header="タイマ値編集...(_E)" >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <l:TransitionInteractionMessageAction WindowType="{x:Type v:TimerValueEditWindow}" Mode="Modal" >
+                                    <l:DirectInteractionMessage>
+                                        <l:TransitionMessage Mode="Modal" WindowType="{x:Type v:TimerValueEditWindow}"/>
                                     </l:DirectInteractionMessage>
                                 </l:TransitionInteractionMessageAction>
                             </i:EventTrigger>

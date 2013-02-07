@@ -15,7 +15,7 @@ using MyTimer3rd.Models;
 
 namespace MyTimer3rd.ViewModels
 {
-    public class EditWindowViewModel : ViewModel
+    public class TimerValueEditWindowViewModel : ViewModel
     {
         /* コマンド、プロパティの定義にはそれぞれ 
          * 
@@ -62,6 +62,7 @@ namespace MyTimer3rd.ViewModels
         public void Initialize()
         {
         }
+
 
     }
 }
