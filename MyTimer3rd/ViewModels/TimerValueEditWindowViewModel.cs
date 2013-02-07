@@ -17,6 +17,8 @@ namespace MyTimer3rd.ViewModels
 {
     public class TimerValueEditWindowViewModel : ViewModel
     {
+        private TimerValueListModel _timerValueListModel;
+
         /* コマンド、プロパティの定義にはそれぞれ 
          * 
          *  lvcom   : ViewModelCommand
@@ -59,10 +61,168 @@ namespace MyTimer3rd.ViewModels
          * 自動的にUIDispatcher上での通知に変換されます。変更通知に際してUIDispatcherを操作する必要はありません。
          */
 
+
+        #region EditTimerValueList変更通知プロパティ
+        private List<TimeSpan> _EditTimerValueList;
+
+        public List<TimeSpan> EditTimerValueList
+        {
+            get
+            { return _EditTimerValueList; }
+            set
+            { 
+                if (_EditTimerValueList == value)
+                    return;
+                _EditTimerValueList = value;
+                RaisePropertyChanged("EditTimerValueList");
+            }
+        }
+        #endregion
+
+
+        #region H10Value変更通知プロパティ
+        private int _H10Value;
+
+        public int H10Value
+        {
+            get
+            { return _H10Value; }
+            set
+            { 
+                if (_H10Value == value)
+                    return;
+                _H10Value = value;
+                RaisePropertyChanged("H10Value");
+            }
+        }
+        #endregion
+        #region H01Value変更通知プロパティ
+        private int _H01Value;
+
+        public int H01Value
+        {
+            get
+            { return _H01Value; }
+            set
+            { 
+                if (_H01Value == value)
+                    return;
+                _H01Value = value;
+                RaisePropertyChanged("H01Value");
+            }
+        }
+        #endregion
+        #region M10Value変更通知プロパティ
+        private int _M10Value;
+
+        public int M10Value
+        {
+            get
+            { return _M10Value; }
+            set
+            { 
+                if (_M10Value == value)
+                    return;
+                _M10Value = value;
+                RaisePropertyChanged("M10Value");
+            }
+        }
+        #endregion
+        #region M01Value変更通知プロパティ
+        private int _M01Value;
+
+        public int M01Value
+        {
+            get
+            { return _M01Value; }
+            set
+            { 
+                if (_M01Value == value)
+                    return;
+                _M01Value = value;
+                RaisePropertyChanged("M01Value");
+            }
+        }
+        #endregion
+        #region S10Value変更通知プロパティ
+        private int _S10Value;
+
+        public int S10Value
+        {
+            get
+            { return _S10Value; }
+            set
+            { 
+                if (_S10Value == value)
+                    return;
+                _S10Value = value;
+                RaisePropertyChanged("S10Value");
+            }
+        }
+        #endregion
+        #region S01Value変更通知プロパティ
+        private int _S01Value;
+
+        public int S01Value
+        {
+            get
+            { return _S01Value; }
+            set
+            { 
+                if (_S01Value == value)
+                    return;
+                _S01Value = value;
+                RaisePropertyChanged("S01Value");
+            }
+        }
+        #endregion
+
+
+
+
+
+
+        #region SelectedItem変更通知プロパティ
+        private TimeSpan _SelectedItem;
+
+        public TimeSpan SelectedItem
+        {
+            get
+            { return _SelectedItem; }
+            set
+            { 
+                if (_SelectedItem == value)
+                    return;
+                _SelectedItem = value;
+
+                SeparateAndSetSelectedValue();
+
+                RaisePropertyChanged("SelectedItem");
+            }
+        }
+        #endregion
+
+
         public void Initialize()
         {
+            _timerValueListModel = TimerListFactory.Create();
+            EditTimerValueList = _timerValueListModel.getEditTimerValueList();
         }
 
-
+        /// <summary>
+        /// 選択されたタイマ値を一桁ずつ設定
+        /// </summary>
+        private void SeparateAndSetSelectedValue()
+        {
+            String tmpStrings = SelectedItem.ToString(@"hh\:mm\:ss");
+            H10Value = int.Parse(tmpStrings[0].ToString());
+            H01Value = int.Parse(tmpStrings[1].ToString());
+            // [2]は":"の部分
+            M10Value = int.Parse(tmpStrings[3].ToString());
+            M01Value = int.Parse(tmpStrings[4].ToString());
+            // [5]は":"の部分
+            S10Value = int.Parse(tmpStrings[6].ToString());
+            S01Value = int.Parse(tmpStrings[7].ToString());
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace MyTimer3rd.ViewModels
     public class MainWindowViewModel : ViewModel
     {
         private TimerModel _timerModel;
-        private TimerValueListModel _timerValueListModel;
+        private TimerValueListModel _timerValueListModel = new TimerValueListModel();
 
         public MainWindowViewModel()
         {
@@ -46,7 +46,6 @@ namespace MyTimer3rd.ViewModels
             });
             this.CompositeDisposable.Add(timerListener);
             #endregion
-
 
         }
 

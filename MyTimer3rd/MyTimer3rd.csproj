@@ -66,6 +66,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\TimerListFactory.cs" />
     <Compile Include="Models\TimerValueListModel.cs" />
     <Compile Include="ViewModels\TimerValueEditWindowViewModel.cs" />
     <Compile Include="ViewModels\StyleEditWindowViewModel.cs" />

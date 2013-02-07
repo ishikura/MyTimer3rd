@@ -9,7 +9,7 @@
         Title="TimerValueEditWindow" Height="265" Width="453">
     
     <Window.DataContext>
-        <vm:MainWindowViewModel/>
+        <vm:TimerValueEditWindowViewModel/>
     </Window.DataContext>
     
      <i:Interaction.Triggers>
@@ -30,14 +30,21 @@
     
     <Grid Height="228" Width="429">
         <ComboBox Height="23" HorizontalAlignment="Right" Margin="0,12,297,0" Name="comboBox1" VerticalAlignment="Top" Width="120"
-                  ItemsSource="{Binding TimerValueList, Mode=OneTime}" SelectionChanged="comboBox1_SelectionChanged" />
+                  ItemsSource="{Binding EditTimerValueList}"
+                  SelectedItem="{Binding SelectedItem}"/>
         <Button Content="設定" Height="23" HorizontalAlignment="Left" Margin="252,194,0,0" Name="ValueSetButton" VerticalAlignment="Top" Width="75" />
         <Button Content="キャンセル" Height="23" HorizontalAlignment="Left" Margin="333,194,0,0" Name="CancelButton" VerticalAlignment="Top" Width="75" />
-        <TextBlock Height="83" HorizontalAlignment="Left" Margin="39,74,0,0" Name="H10TextBlock" Text="TextBlock" VerticalAlignment="Top" Width="51" />
-        <TextBlock Height="83" HorizontalAlignment="Left" Margin="96,74,0,0" Name="H01TextBlock" Text="TextBlock" VerticalAlignment="Top" Width="51" />
-        <TextBlock Height="83" HorizontalAlignment="Left" Margin="169,74,0,0" Name="M10TextBlock" Text="TextBlock" VerticalAlignment="Top" Width="51" />
-        <TextBlock Height="83" HorizontalAlignment="Left" Margin="226,74,0,0" Name="M01TextBlock" Text="TextBlock" VerticalAlignment="Top" Width="51" />
-        <TextBlock Height="83" HorizontalAlignment="Left" Margin="297,74,0,0" Name="S10TextBlock" Text="TextBlock" VerticalAlignment="Top" Width="51" />
-        <TextBlock Height="83" HorizontalAlignment="Left" Margin="354,74,0,0" Name="S01TextBlock" Text="TextBlock" VerticalAlignment="Top" Width="51" />
+        <TextBlock Height="83" HorizontalAlignment="Left" Margin="39,74,0,0" Name="H10TextBlock" VerticalAlignment="Top" Width="51" 
+                   Text="{Binding H10Value}"/>
+        <TextBlock Height="83" HorizontalAlignment="Left" Margin="96,74,0,0" Name="H01TextBlock" VerticalAlignment="Top" Width="51"
+                   Text="{Binding H01Value}"/>
+        <TextBlock Height="83" HorizontalAlignment="Left" Margin="169,74,0,0" Name="M10TextBlock" VerticalAlignment="Top" Width="51"
+                   Text="{Binding M10Value}"/>
+        <TextBlock Height="83" HorizontalAlignment="Left" Margin="226,74,0,0" Name="M01TextBlock" VerticalAlignment="Top" Width="51"
+                   Text="{Binding M01Value}"/>
+        <TextBlock Height="83" HorizontalAlignment="Left" Margin="297,74,0,0" Name="S10TextBlock" VerticalAlignment="Top" Width="51"
+                   Text="{Binding S10Value}"/>
+        <TextBlock Height="83" HorizontalAlignment="Left" Margin="354,74,0,0" Name="S01TextBlock" VerticalAlignment="Top" Width="51"
+                   Text="{Binding S01Value}"/>
     </Grid>
 </Window>
