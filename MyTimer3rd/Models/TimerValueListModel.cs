@@ -33,7 +33,9 @@ namespace MyTimer3rd.Models
                 new TimeSpan(0, 1, 0),
                 new TimeSpan(0, 3, 0),
                 new TimeSpan(0, 5, 0),
-                new TimeSpan(0,10, 0),};
+                new TimeSpan(0,10, 0),
+                new TimeSpan(0,25, 0),
+                };
 
                 EditTimerValueList = TimerValueList;
 

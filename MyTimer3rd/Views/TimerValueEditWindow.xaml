@@ -6,14 +6,14 @@
         xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
         xmlns:v="clr-namespace:MyTimer3rd.Views"
         xmlns:vm="clr-namespace:MyTimer3rd.ViewModels"
-        Title="TimerValueEditWindow" Height="265" Width="453">
-    
+        Title="TimerValueEditWindow" Height="269" Width="453">
+
     <Window.DataContext>
         <vm:TimerValueEditWindowViewModel/>
     </Window.DataContext>
-    
-     <i:Interaction.Triggers>
-        
+
+    <i:Interaction.Triggers>
+
         <!--WindowのContentRenderedイベントのタイミングでViewModelのInitializeメソッドが呼ばれます-->
         <i:EventTrigger EventName="ContentRendered">
             <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="Initialize"/>
@@ -27,24 +27,106 @@
         <!--WindowのCloseキャンセル処理に対応する場合は、WindowCloseCancelBehaviorの使用を検討してください-->
 
     </i:Interaction.Triggers>
-    
-    <Grid Height="228" Width="429">
-        <ComboBox Height="23" HorizontalAlignment="Right" Margin="0,12,297,0" Name="comboBox1" VerticalAlignment="Top" Width="120"
+
+    <Grid Height="232" Width="429">
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="27,12,0,0" Name="comboBox1" VerticalAlignment="Top" Width="120"
                   ItemsSource="{Binding EditTimerValueList}"
                   SelectedItem="{Binding SelectedItem}"/>
         <Button Content="設定" Height="23" HorizontalAlignment="Left" Margin="252,194,0,0" Name="ValueSetButton" VerticalAlignment="Top" Width="75" />
         <Button Content="キャンセル" Height="23" HorizontalAlignment="Left" Margin="333,194,0,0" Name="CancelButton" VerticalAlignment="Top" Width="75" />
         <TextBlock Height="83" HorizontalAlignment="Left" Margin="39,74,0,0" Name="H10TextBlock" VerticalAlignment="Top" Width="51" 
-                   Text="{Binding H10Value}"/>
+                   Text="{Binding H10Value}" >
+            <TextBlock.ContextMenu>
+                   <ContextMenu>
+                       <MenuItem Header="0" Command="{Binding ContextSelectNumberCommand}" CommandParameter="H10_0"/>
+                       <MenuItem Header="1" Command="{Binding ContextSelectNumberCommand}" CommandParameter="H10_1"/>
+                       <MenuItem Header="2" Command="{Binding ContextSelectNumberCommand}" CommandParameter="H10_2"/>
+                       <MenuItem Header="3" Command="{Binding ContextSelectNumberCommand}" CommandParameter="H10_3"/>
+                       <MenuItem Header="4" Command="{Binding ContextSelectNumberCommand}" CommandParameter="H10_4"/>
+                       <MenuItem Header="5" Command="{Binding ContextSelectNumberCommand}" CommandParameter="H10_5"/>
+                       <MenuItem Header="6" Command="{Binding ContextSelectNumberCommand}" CommandParameter="H10_6"/>
+                       <MenuItem Header="7" Command="{Binding ContextSelectNumberCommand}" CommandParameter="H10_7"/>
+                       <MenuItem Header="8" Command="{Binding ContextSelectNumberCommand}" CommandParameter="H10_8"/>
+                       <MenuItem Header="9" Command="{Binding ContextSelectNumberCommand}" CommandParameter="H10_9"/>
+                   </ContextMenu>
+            </TextBlock.ContextMenu>
+        </TextBlock>
         <TextBlock Height="83" HorizontalAlignment="Left" Margin="96,74,0,0" Name="H01TextBlock" VerticalAlignment="Top" Width="51"
-                   Text="{Binding H01Value}"/>
+                   Text="{Binding H01Value}">
+        <TextBlock.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="0" Command="{Binding ContextSelectNumberCommand}" CommandParameter="H01_0"/>
+                <MenuItem Header="1" Command="{Binding ContextSelectNumberCommand}" CommandParameter="H01_1"/>
+                <MenuItem Header="2" Command="{Binding ContextSelectNumberCommand}" CommandParameter="H01_2"/>
+                <MenuItem Header="3" Command="{Binding ContextSelectNumberCommand}" CommandParameter="H01_3"/>
+                <MenuItem Header="4" Command="{Binding ContextSelectNumberCommand}" CommandParameter="H01_4"/>
+                <MenuItem Header="5" Command="{Binding ContextSelectNumberCommand}" CommandParameter="H01_5"/>
+                <MenuItem Header="6" Command="{Binding ContextSelectNumberCommand}" CommandParameter="H01_6"/>
+                <MenuItem Header="7" Command="{Binding ContextSelectNumberCommand}" CommandParameter="H01_7"/>
+                <MenuItem Header="8" Command="{Binding ContextSelectNumberCommand}" CommandParameter="H01_8"/>
+                <MenuItem Header="9" Command="{Binding ContextSelectNumberCommand}" CommandParameter="H01_9"/>
+            </ContextMenu>
+        </TextBlock.ContextMenu>
+        </TextBlock>
         <TextBlock Height="83" HorizontalAlignment="Left" Margin="169,74,0,0" Name="M10TextBlock" VerticalAlignment="Top" Width="51"
-                   Text="{Binding M10Value}"/>
+                   Text="{Binding M10Value}">
+            <TextBlock.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="0" Command="{Binding ContextSelectNumberCommand}" CommandParameter="M10_0"/>
+                <MenuItem Header="1" Command="{Binding ContextSelectNumberCommand}" CommandParameter="M10_1"/>
+                <MenuItem Header="2" Command="{Binding ContextSelectNumberCommand}" CommandParameter="M10_2"/>
+                <MenuItem Header="3" Command="{Binding ContextSelectNumberCommand}" CommandParameter="M10_3"/>
+                <MenuItem Header="4" Command="{Binding ContextSelectNumberCommand}" CommandParameter="M10_4"/>
+                <MenuItem Header="5" Command="{Binding ContextSelectNumberCommand}" CommandParameter="M10_5"/>
+            </ContextMenu>
+            </TextBlock.ContextMenu>
+        </TextBlock>
         <TextBlock Height="83" HorizontalAlignment="Left" Margin="226,74,0,0" Name="M01TextBlock" VerticalAlignment="Top" Width="51"
-                   Text="{Binding M01Value}"/>
+                   Text="{Binding M01Value}">
+            <TextBlock.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="0" Command="{Binding ContextSelectNumberCommand}" CommandParameter="M01_0"/>
+                <MenuItem Header="1" Command="{Binding ContextSelectNumberCommand}" CommandParameter="M01_1"/>
+                <MenuItem Header="2" Command="{Binding ContextSelectNumberCommand}" CommandParameter="M01_2"/>
+                <MenuItem Header="3" Command="{Binding ContextSelectNumberCommand}" CommandParameter="M01_3"/>
+                <MenuItem Header="4" Command="{Binding ContextSelectNumberCommand}" CommandParameter="M01_4"/>
+                <MenuItem Header="5" Command="{Binding ContextSelectNumberCommand}" CommandParameter="M01_5"/>
+                <MenuItem Header="6" Command="{Binding ContextSelectNumberCommand}" CommandParameter="M01_6"/>
+                <MenuItem Header="7" Command="{Binding ContextSelectNumberCommand}" CommandParameter="M01_7"/>
+                <MenuItem Header="8" Command="{Binding ContextSelectNumberCommand}" CommandParameter="M01_8"/>
+                <MenuItem Header="9" Command="{Binding ContextSelectNumberCommand}" CommandParameter="M01_9"/>
+            </ContextMenu>
+            </TextBlock.ContextMenu>
+        </TextBlock>
         <TextBlock Height="83" HorizontalAlignment="Left" Margin="297,74,0,0" Name="S10TextBlock" VerticalAlignment="Top" Width="51"
-                   Text="{Binding S10Value}"/>
+                   Text="{Binding S10Value}">
+            <TextBlock.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="0" Command="{Binding ContextSelectNumberCommand}" CommandParameter="S10_0"/>
+                <MenuItem Header="1" Command="{Binding ContextSelectNumberCommand}" CommandParameter="S10_1"/>
+                <MenuItem Header="2" Command="{Binding ContextSelectNumberCommand}" CommandParameter="S10_2"/>
+                <MenuItem Header="3" Command="{Binding ContextSelectNumberCommand}" CommandParameter="S10_3"/>
+                <MenuItem Header="4" Command="{Binding ContextSelectNumberCommand}" CommandParameter="S10_4"/>
+                <MenuItem Header="5" Command="{Binding ContextSelectNumberCommand}" CommandParameter="S10_5"/>
+            </ContextMenu>
+            </TextBlock.ContextMenu>
+        </TextBlock>
         <TextBlock Height="83" HorizontalAlignment="Left" Margin="354,74,0,0" Name="S01TextBlock" VerticalAlignment="Top" Width="51"
-                   Text="{Binding S01Value}"/>
+                   Text="{Binding S01Value}">
+            <TextBlock.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="0" Command="{Binding ContextSelectNumberCommand}" CommandParameter="S01_0"/>
+                <MenuItem Header="1" Command="{Binding ContextSelectNumberCommand}" CommandParameter="S01_1"/>
+                <MenuItem Header="2" Command="{Binding ContextSelectNumberCommand}" CommandParameter="S01_2"/>
+                <MenuItem Header="3" Command="{Binding ContextSelectNumberCommand}" CommandParameter="S01_3"/>
+                <MenuItem Header="4" Command="{Binding ContextSelectNumberCommand}" CommandParameter="S01_4"/>
+                <MenuItem Header="5" Command="{Binding ContextSelectNumberCommand}" CommandParameter="S01_5"/>
+                <MenuItem Header="6" Command="{Binding ContextSelectNumberCommand}" CommandParameter="S01_6"/>
+                <MenuItem Header="7" Command="{Binding ContextSelectNumberCommand}" CommandParameter="S01_7"/>
+                <MenuItem Header="8" Command="{Binding ContextSelectNumberCommand}" CommandParameter="S01_8"/>
+                <MenuItem Header="9" Command="{Binding ContextSelectNumberCommand}" CommandParameter="S01_9"/>
+            </ContextMenu>
+            </TextBlock.ContextMenu>
+        </TextBlock>
     </Grid>
 </Window>

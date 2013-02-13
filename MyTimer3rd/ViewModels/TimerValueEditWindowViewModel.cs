@@ -178,10 +178,6 @@ namespace MyTimer3rd.ViewModels
         #endregion
 
 
-
-
-
-
         #region SelectedItem変更通知プロパティ
         private TimeSpan _SelectedItem;
 
@@ -203,6 +199,61 @@ namespace MyTimer3rd.ViewModels
         #endregion
 
 
+
+        #region 右クリックでの数値選択Command
+        /// <summary>
+        /// 選択されたケタ数を判断してそのケタの数値を変更
+        /// </summary>
+        /// <param name="parameter"></param>
+        private ListenerCommand<string> _ContextSelectNumberCommand;
+        public ListenerCommand<string> ContextSelectNumberCommand
+        {
+            get
+            {
+                if (_ContextSelectNumberCommand == null)
+                {
+                    _ContextSelectNumberCommand = new ListenerCommand<string>(ContextSelectNumber);
+                }
+                return _ContextSelectNumberCommand;
+            }
+        }
+
+        public void ContextSelectNumber(string parameter)
+        {
+            var splitStr = parameter.Split('_');
+            var selectedValue = Convert.ToInt32(splitStr[1]);
+
+            switch(splitStr[0])
+            {
+                case "H10":
+                    H10Value = selectedValue;
+                    break;
+                case "H01":
+                    H01Value = selectedValue;
+                    break;
+                case "M10":
+                    M10Value = selectedValue;
+                    break;
+                case "M01":
+                    M01Value = selectedValue;
+                    break;
+                case "S10":
+                    S10Value = selectedValue;
+                    break;
+                case "S01":
+                    S01Value = selectedValue;
+                    break;
+                default:
+                    break;
+            }
+        }
+        #endregion
+
+
+
+
+
+
         public void Initialize()
         {
             _timerValueListModel = TimerListFactory.Create();
@@ -210,7 +261,7 @@ namespace MyTimer3rd.ViewModels
         }
 
         /// <summary>
-        /// 選択されたタイマ値を一桁ずつ設定
+        /// ComboBoxで選択したタイマ値を一桁ずつ設定
         /// </summary>
         private void SeparateAndSetSelectedValue()
         {
