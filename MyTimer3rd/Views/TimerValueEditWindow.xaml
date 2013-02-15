@@ -6,12 +6,13 @@
         xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
         xmlns:v="clr-namespace:MyTimer3rd.Views"
         xmlns:vm="clr-namespace:MyTimer3rd.ViewModels"
+        xmlns:lc="clr-namespace:MyTimer3rd"
         Title="TimerValueEditWindow" Height="269" Width="453">
 
     <Window.DataContext>
         <vm:TimerValueEditWindowViewModel/>
     </Window.DataContext>
-
+    
     <i:Interaction.Triggers>
 
         <!--WindowのContentRenderedイベントのタイミングでViewModelのInitializeメソッドが呼ばれます-->
@@ -30,9 +31,10 @@
 
     <Grid Height="232" Width="429">
         <ComboBox Height="23" HorizontalAlignment="Left" Margin="27,12,0,0" Name="comboBox1" VerticalAlignment="Top" Width="120"
-                  ItemsSource="{Binding EditTimerValueList}"
+                  ItemsSource="{Binding Mode=TwoWay, Path=EditTimerValueStrList}"
                   SelectedItem="{Binding SelectedItem}"/>
-        <Button Content="設定" Height="23" HorizontalAlignment="Left" Margin="252,194,0,0" Name="ValueSetButton" VerticalAlignment="Top" Width="75" />
+        <Button Content="設定" Height="23" HorizontalAlignment="Left" Margin="252,194,0,0" Name="ValueSetButton" VerticalAlignment="Top" Width="75"
+                Command="{Binding SetEditValueCommand}"/>
         <Button Content="キャンセル" Height="23" HorizontalAlignment="Left" Margin="333,194,0,0" Name="CancelButton" VerticalAlignment="Top" Width="75" />
         <TextBlock Height="83" HorizontalAlignment="Left" Margin="39,74,0,0" Name="H10TextBlock" VerticalAlignment="Top" Width="51" 
                    Text="{Binding H10Value}" >
@@ -128,5 +130,7 @@
             </ContextMenu>
             </TextBlock.ContextMenu>
         </TextBlock>
+        <Label Height="24" HorizontalAlignment="Left" Margin="27,194,0,0" Name="debugLabel" VerticalAlignment="Top" Width="137"
+               Content="{Binding DebugLabel}"/>
     </Grid>
 </Window>

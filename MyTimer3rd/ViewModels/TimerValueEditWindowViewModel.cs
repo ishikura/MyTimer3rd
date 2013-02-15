@@ -61,24 +61,23 @@ namespace MyTimer3rd.ViewModels
          * 自動的にUIDispatcher上での通知に変換されます。変更通知に際してUIDispatcherを操作する必要はありません。
          */
 
+        private List<TimeSpan> _editTimerValueList = new List<TimeSpan> { };
 
-        #region EditTimerValueList変更通知プロパティ
-        private List<TimeSpan> _EditTimerValueList;
-
-        public List<TimeSpan> EditTimerValueList
+        #region EditTimerValueStrList変更通知プロパティ
+        private ObservableSynchronizedCollection<string> _EditTimerValueStrList;
+        public ObservableSynchronizedCollection<string> EditTimerValueStrList
         {
             get
-            { return _EditTimerValueList; }
+            { return _EditTimerValueStrList; }
             set
             { 
-                if (_EditTimerValueList == value)
+                if (_EditTimerValueStrList == value)
                     return;
-                _EditTimerValueList = value;
-                RaisePropertyChanged("EditTimerValueList");
+                _EditTimerValueStrList = value;
+                RaisePropertyChanged("EditTimerValueStrList");
             }
         }
         #endregion
-
 
         #region H10Value変更通知プロパティ
         private int _H10Value;
@@ -198,6 +197,23 @@ namespace MyTimer3rd.ViewModels
         }
         #endregion
 
+        #region DebugLabel変更通知プロパティ
+        private string _DebugLabel;
+
+        public string DebugLabel
+        {
+            get
+            { return _DebugLabel; }
+            set
+            { 
+                if (_DebugLabel == value)
+                    return;
+                _DebugLabel = value;
+                RaisePropertyChanged("DebugLabel");
+            }
+        }
+        #endregion
+
 
 
         #region 右クリックでの数値選択Command
@@ -246,18 +262,53 @@ namespace MyTimer3rd.ViewModels
                 default:
                     break;
             }
+
+            DebugLabel = H10Value.ToString() + H01Value.ToString() + ":" +
+                M10Value.ToString() + M01Value.ToString() + ":" +
+                S10Value.ToString() + S01Value.ToString();
         }
         #endregion
 
+        #region SetEditValueCommand
+        private ViewModelCommand _SetEditValueCommand;
+
+        public ViewModelCommand SetEditValueCommand
+        {
+            get
+            {
+                if (_SetEditValueCommand == null)
+                {
+                    _SetEditValueCommand = new ViewModelCommand(SetEditValue, CanSetEditValue);
+                }
+                return _SetEditValueCommand;
+            }
+        }
+
+        public bool CanSetEditValue()
+        {
+            return true;
+        }
+
+        public void SetEditValue()
+        {
+            TimeSpan setValue = new TimeSpan(H10Value * 10 + H01Value, M10Value * 10 + M01Value, S10Value * 10 + S01Value);
 
 
-
-
+            EditTimerValueStrList.Add(MyUtil.TimeSpanTo24hStr(setValue));
+        }
+        #endregion
 
         public void Initialize()
         {
             _timerValueListModel = TimerListFactory.Create();
-            EditTimerValueList = _timerValueListModel.getEditTimerValueList();
+
+            EditTimerValueStrList = new ObservableSynchronizedCollection<string> { };
+
+            _editTimerValueList = _timerValueListModel.getEditTimerValueList();
+            foreach (TimeSpan value in _editTimerValueList)
+            {
+                EditTimerValueStrList.Add(MyUtil.TimeSpanTo24hStr(value));
+            }
         }
 
         /// <summary>
