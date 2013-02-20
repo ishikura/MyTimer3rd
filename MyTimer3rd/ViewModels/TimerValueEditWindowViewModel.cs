@@ -269,7 +269,7 @@ namespace MyTimer3rd.ViewModels
         }
         #endregion
 
-        #region SetEditValueCommand
+        #region リスト値追加（SetEditValueCommand）
         private ViewModelCommand _SetEditValueCommand;
 
         public ViewModelCommand SetEditValueCommand
@@ -286,6 +286,7 @@ namespace MyTimer3rd.ViewModels
 
         public bool CanSetEditValue()
         {
+            // 00:00:00は登録不可(…としたかったのだが、なんでかうまく判定できない）
             return true;
         }
 
@@ -293,8 +294,23 @@ namespace MyTimer3rd.ViewModels
         {
             TimeSpan setValue = new TimeSpan(H10Value * 10 + H01Value, M10Value * 10 + M01Value, S10Value * 10 + S01Value);
 
+            // 二重登録はしない
+            if (_editTimerValueList.Exists((x) => x == setValue)) return;
 
-            EditTimerValueStrList.Add(MyUtil.TimeSpanTo24hStr(setValue));
+            // リストに追加してソートする
+            _editTimerValueList.Add(setValue);
+            _editTimerValueList.Sort();
+
+            // 表示用リスト更新
+            EditTimerValueStrList.Clear();
+            foreach (TimeSpan value in _editTimerValueList)
+            {
+                EditTimerValueStrList.Add(MyUtil.TimeSpanTo24hStr(value));
+            }
+
+            //リストのモデル側も更新
+            _timerValueListModel.UpdateEditTimerValueList(_editTimerValueList);
+
         }
         #endregion
 

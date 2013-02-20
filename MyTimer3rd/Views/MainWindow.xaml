@@ -80,7 +80,7 @@
         <Button Content="RESET" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="243,138,0,0" Name="resetBtn" VerticalAlignment="Top" Width="75" Command="{Binding ResetButtonCommand}"/>
         <ComboBox Grid.Row="1" Height="23" HorizontalAlignment="Left"
                   Margin="12,138,0,0" Name="TimerValueComboBox" VerticalAlignment="Top" Width="120"
-                  ItemsSource="{Binding TimerValueList}" SelectedItem="{Binding SelectedTimerValue}"
+                  ItemsSource="{Binding TimerValueStrList, Mode=TwoWay}" SelectedItem="{Binding SelectedTimerValue}"
                   IsEnabled="{Binding TimerValueListIsEnable}"/>
     </Grid>
 </Window>

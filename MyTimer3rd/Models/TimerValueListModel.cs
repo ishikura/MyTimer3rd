@@ -12,11 +12,14 @@ namespace MyTimer3rd.Models
         /*
          * NotificationObjectはプロパティ変更通知の仕組みを実装したオブジェクトです。
          */
-        private static bool IsCreated = false;
+        volatile private static bool IsCreated = false;
         private static TimerValueListModel _timerValueListModel;
 
-        private  static List<TimeSpan> TimerValueList;
-        private  static List<TimeSpan> EditTimerValueList;
+        private static TimerListSettings _timerListSettings;
+
+        private static List<TimeSpan> TimerValueList = new List<TimeSpan>() { };
+
+        private static object syncObj = new object();
 
         public static TimerValueListModel Instance()
         {
@@ -27,17 +30,25 @@ namespace MyTimer3rd.Models
             else
             {
                 _timerValueListModel = new TimerValueListModel();
-                IsCreated = true;
-                TimerValueList = 
-                new List<TimeSpan>() {
-                new TimeSpan(0, 1, 0),
-                new TimeSpan(0, 3, 0),
-                new TimeSpan(0, 5, 0),
-                new TimeSpan(0,10, 0),
-                new TimeSpan(0,25, 0),
-                };
 
-                EditTimerValueList = TimerValueList;
+                _timerListSettings = new TimerListSettings();
+
+                _timerListSettings.Reload();
+
+                if (_timerListSettings.TimerList == null)
+                {
+                    // リストが読めない場合は3分を1個だけ設定
+                    TimerValueList.Add(TimeSpan.Parse("0, 3, 0"));
+                }
+                else
+                {
+                    foreach (string ts in _timerListSettings.TimerList)
+                    {
+                        TimerValueList.Add(TimeSpan.Parse(ts));
+                    }
+                }
+
+                IsCreated = true;
 
                 return _timerValueListModel;
             }
@@ -45,13 +56,32 @@ namespace MyTimer3rd.Models
 
         public List<TimeSpan> getEditTimerValueList()
         {
-            return EditTimerValueList;
+            lock (syncObj)
+            {
+            }
+            return TimerValueList;
         }
 
         public bool UpdateEditTimerValueList(List<TimeSpan> timerList)
         {
-            TimerValueList = timerList;
-            EditTimerValueList = timerList;
+            
+            List<string> saveTimeListStr = new List<string>();
+
+            lock (syncObj)
+            {
+                TimerValueList = timerList;
+            }
+
+            foreach (TimeSpan ts in timerList)
+            {
+                saveTimeListStr.Add(ts.ToString());
+            }
+
+            _timerListSettings.TimerList = saveTimeListStr;
+            
+            _timerListSettings.Save();
+
+            RaisePropertyChanged("TimerValueListModel");
 
             return true;
         }

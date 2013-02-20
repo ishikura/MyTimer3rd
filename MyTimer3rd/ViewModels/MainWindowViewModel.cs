@@ -18,7 +18,7 @@ namespace MyTimer3rd.ViewModels
     public class MainWindowViewModel : ViewModel
     {
         private TimerModel _timerModel;
-        private TimerValueListModel _timerValueListModel = new TimerValueListModel();
+        private TimerValueListModel _timerValueListModel;
 
         public MainWindowViewModel()
         {
@@ -47,6 +47,27 @@ namespace MyTimer3rd.ViewModels
             this.CompositeDisposable.Add(timerListener);
             #endregion
 
+            #region Timer値リストモデル生成および聞き耳設定
+            _timerValueListModel = TimerListFactory.Create();
+            var timerValueListListener = new PropertyChangedEventListener(_timerValueListModel);
+
+            timerValueListListener.RegisterHandler("TimerValueListModel", (sender, e) =>
+            {
+                TimerValueList = _timerValueListModel.getEditTimerValueList();
+
+                // コンボボックス表示用文字列再構築
+                TimerValueStrList.Clear();
+                foreach(TimeSpan ts in TimerValueList)
+                {
+                    TimerValueStrList.Add(MyUtil.TimeSpanTo24hStr(ts));
+                }
+                RaisePropertyChanged("TimerValueStrList");
+            });
+
+            this.CompositeDisposable.Add(timerValueListListener);
+
+            #endregion
+
         }
 
         /// <summary>
@@ -69,7 +90,7 @@ namespace MyTimer3rd.ViewModels
         }
         #endregion
         #region RemainTime変更通知プロパティ
-        private string _RemainTime = "00:00:00";
+        private string _RemainTime = "";
 
         public string RemainTime
         {
@@ -85,12 +106,7 @@ namespace MyTimer3rd.ViewModels
         }
         #endregion
         #region TimerValueList変更通知プロパティ
-        private List<TimeSpan> _TimerValueList
-            = new List<TimeSpan>() {
-                new TimeSpan(0, 1, 0),
-                new TimeSpan(0, 3, 0),
-                new TimeSpan(0, 5, 0),
-                new TimeSpan(0,10, 0),};
+        private List<TimeSpan> _TimerValueList = new List<TimeSpan>(){};
 
         public List<TimeSpan> TimerValueList
         {
@@ -101,7 +117,24 @@ namespace MyTimer3rd.ViewModels
                 if (_TimerValueList == value)
                     return;
                 _TimerValueList = value;
-                RaisePropertyChanged("TimerValueList");
+                
+                RaisePropertyChanged("TimerValueStrList");
+            }
+        }
+        #endregion
+
+        #region TimerValueStrList変更通知プロパティ
+        private ObservableSynchronizedCollection<string> _TimerValueStrList = new ObservableSynchronizedCollection<string>() { };
+        public ObservableSynchronizedCollection<string> TimerValueStrList
+        {
+            get
+            { return _TimerValueStrList; }
+            set
+            {
+                if (_TimerValueStrList == value)
+                    return;
+                _TimerValueStrList = value;
+                RaisePropertyChanged("TimerValueStrList");
             }
         }
         #endregion
@@ -184,6 +217,9 @@ namespace MyTimer3rd.ViewModels
 
          public void Initialize()
         {
+            _timerValueListModel = TimerListFactory.Create();
+
+            TimerValueList = _timerValueListModel.getEditTimerValueList();
         }
         
         ///Menuコマンド
